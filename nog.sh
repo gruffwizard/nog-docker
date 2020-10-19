@@ -13,5 +13,6 @@ dev)
   ;;
 quickstart)
   echo "quickstart" $2
+  git status
   ;;
 esac
