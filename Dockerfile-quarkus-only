@@ -6,7 +6,7 @@ ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en'
 
 COPY --from=builder /etc/yum.repos.d/yarn.repo  /etc/yum.repos.d/yarn.repo
 
-RUN microdnf install yarn shadow-utils  gcc glibc-devel zlib-devel libstdc++
+RUN microdnf install yarn git shadow-utils  gcc glibc-devel zlib-devel libstdc++
 
 RUN useradd -ms /bin/bash nog
 
@@ -35,6 +35,8 @@ COPY nog.sh /home/nog/tools
 RUN mkdir -p /home/nog/src
 
 RUN mkdir -p /home/nog/.m2
+
+RUN mkdir -p /home/nog/quarkus-quickstarts
 
 WORKDIR /home/nog/src
 
