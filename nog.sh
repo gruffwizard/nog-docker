@@ -12,8 +12,7 @@ if [[ ! -z "${NOG_VERBOSE}" ]]; then
 fi
 
 if $verbose; then
-    echo "NOG_IDE    = $NOG_START_IDE"
-    echo "QUICKSTART = $NOG_QUICKSTART"
+    printenv
     git --version
 fi
 
@@ -45,11 +44,13 @@ if [[ ! -z "${NOG_QUICKSTART}" ]]; then
 
 fi
 
-if [[ ! -z "${NOG_START_IDE}" ]]; then
-  cd /home/nog/tools/theia && yarn start $src  &
-fi
+if [[ -z "${NOG_QUICKSTART_ONLY}" ]]; then
 
-cd $src
+  if [[ ! -z "${NOG_START_IDE}" ]]; then
+    cd /home/nog/tools/theia && yarn start $src  &
+  fi
+
+  cd $src
 
   if [ ! -f "./pom.xml" ]; then
     echo  -e "\e[31mno pom.xml file present\e[0m"
@@ -57,3 +58,5 @@ cd $src
   fi
 
   mvn compile quarkus:dev
+
+fi
