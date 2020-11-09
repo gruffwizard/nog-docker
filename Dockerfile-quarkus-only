@@ -43,3 +43,4 @@ WORKDIR /home/nog/src
 #ENTRYPOINT  ["/home/nog/tools/runner.sh"]
 
 LABEL nog=true
+

@@ -42,6 +42,12 @@ if [[ ! -z "${NOG_QUICKSTART}" ]]; then
   cp -r /home/nog/quarkus-quickstarts/$quickstart $src/$quickstart
   src=$src/$quickstart
 
+else
+  if [[ ! -z "${NOG_CLONE}" ]]; then
+    repo="${NOG_CLONE}"
+    cd $src && git clone --depth 1 $repo .
+  fi
+
 fi
 
 if [[ -z "${NOG_QUICKSTART_ONLY}" ]]; then
@@ -57,6 +63,17 @@ if [[ -z "${NOG_QUICKSTART_ONLY}" ]]; then
     exit -1
   fi
 
+  if [[ ! -z "${NOG_CONVERT}" ]]; then
+    qv=`xmllint  --xpath "//*[local-name()='quarkus-plugin.version']/text()" pom.xml`
+
+    if [[ -z "${qv}" ]]; then
+      # add quarkus...
+      
+    else
+      echo "Using quarkus version $qv"
+    fi
+
+  fi
   mvn compile quarkus:dev
 
 fi
